@@ -31,7 +31,7 @@ DEDUCT addresses this with:
 6. **Unique file →** encrypted file + IV uploaded and stored.
 7. On download, the encrypted file + IV are retrieved and decrypted locally with the original key.
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | Component | Technology |
 |---|---|
