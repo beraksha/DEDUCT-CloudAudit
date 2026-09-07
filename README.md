@@ -2,14 +2,14 @@
 
 DEDUCT is a secure deduplication framework for textual data in cloud storage. It combines strong encryption with hash-based duplicate detection so that cloud providers can eliminate redundant files **without ever seeing the plaintext content**, and lays the groundwork for detecting duplicates that are semantically similar (paraphrased) rather than byte-for-byte identical.
 
-## 🚩 Problem
+## Problem
 
 Cloud storage grows explosively, and a large share of it is redundant text — repeated emails, reports, and logs. Standard deduplication saves space but usually requires access to plaintext, which is a privacy and security risk. Existing secure-deduplication schemes also tend to:
 - rely on a trusted third party / central key server (single point of failure)
 - only catch *exact* duplicates, missing reworded or paraphrased content
 - carry heavy cryptographic overhead that doesn't scale well to many users or low-power devices
 
-## 💡 Approach
+## Approach
 
 DEDUCT addresses this with:
 - **Encryption before storage** — files are encrypted (AES, with a DES-based double-encryption variant explored for comparison) using client-held keys, so the cloud never sees raw content.
@@ -18,7 +18,7 @@ DEDUCT addresses this with:
 - **Pointer-based storage** on the Cloud Service Provider (CSP) side to manage duplicates efficiently.
 - Designed to extend toward **semantic-aware deduplication** (NLP-based similarity, e.g. embeddings + cosine similarity) so paraphrased/reworded documents can also be recognized as redundant.
 
-## 🏗️ Architecture
+## Architecture
 
 **Actors:** Authorized Clients, Key Distribution Center (KDC), Cloud Service Provider (CSP)
 
@@ -42,15 +42,13 @@ DEDUCT addresses this with:
 | Crypto | AES (CBC/GCM), SHA-256 hashing, DES/DDDES (comparative study) |
 | Libraries | MySQL Connector/J, Apache Commons Codec, JavaMail, Apache FTPClient |
 
-## 📊 Results
+## Results
 
 - Compared **DES-64, AES-128, and DDDES-64** on compression ratio and bandwidth usage — DDDES-64 gave the best compression ratio and lowest bandwidth usage among the three.
 - Compared the proposed system against a baseline on performance and latency — the proposed design showed markedly higher performance and lower latency.
 - Full test suite covering unique-file upload, duplicate detection, edge cases (empty files, invalid keys, large files), and correct decryption on retrieval.
 
-*(See the full report for detailed metrics, charts, and discussion.)*
-
-## 🔭 Future Scope
+## Future Scope
 
 - Semantic deduplication via NLP (detecting reworded/paraphrased duplicates, not just exact matches)
 - Blockchain-based multi-user access control and immutable audit logging
